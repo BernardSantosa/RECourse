@@ -10,7 +10,7 @@ NIXPACKS_NODE_VERSION = "20"
 cmds = [
     "npm --prefix client install",
     "npm --prefix client run build",
-    "pip install -r server/requirements.txt"
+    "pip3 install -r server/requirements.txt"
 ]
 
 [start]
