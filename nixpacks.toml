@@ -2,6 +2,9 @@
 
 providers = ["python", "node"]
 
+[variables]
+NIXPACKS_NODE_VERSION = "20"
+
 [phases.build]
 # Perintah build Anda tetap sama
 cmds = [
