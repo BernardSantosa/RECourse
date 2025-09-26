@@ -5,14 +5,17 @@ providers = ["python", "node"]
 [variables]
 NIXPACKS_NODE_VERSION = "20"
 
+[phases.setup]
+# Memastikan pip dan gcc terinstal secara eksplisit di awal
+nixPkgs = ["python3", "python3Packages.pip", "gcc"]
+
 [phases.build]
-# Perintah build Anda tetap sama
 cmds = [
     "npm --prefix client install",
     "npm --prefix client run build",
+    # Setelah setup di atas, perintah ini SEHARUSNYA sudah bisa jalan
     "pip3 install -r server/requirements.txt"
 ]
 
 [start]
-# Perintah start Anda tetap sama
 cmd = "gunicorn --chdir server app:app"
