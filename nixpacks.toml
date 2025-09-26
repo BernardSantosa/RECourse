@@ -1,0 +1,17 @@
+# nixpacks.toml
+
+# 1. Tentukan "provider" atau bahasa yang dibutuhkan
+providers = ["python", "node"]
+
+# 2. Tentukan fase build
+[phases.build]
+# Perintah ini akan dijalankan setelah semua bahasa diinstal
+cmds = [
+    "npm --prefix client install",
+    "npm --prefix client run build",
+    "pip install -r server/requirements.txt"
+]
+
+# 3. Tentukan perintah untuk memulai server
+[start]
+cmd = "gunicorn --chdir server app:app"
