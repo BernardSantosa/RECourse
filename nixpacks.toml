@@ -12,9 +12,7 @@ nixPkgs = ["python3", "python3Packages.pip", "gcc"]
 [phases.build]
 cmds = [
     "npm --prefix client install",
-    "npm --prefix client run build",
-    # Setelah setup di atas, perintah ini SEHARUSNYA sudah bisa jalan
-    "pip3 install -r server/requirements.txt"
+    "npm --prefix client run build"
 ]
 
 [start]
