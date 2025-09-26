@@ -33,10 +33,6 @@ def get_recommendation(text, n_rec = 10):
 app = Flask(__name__, static_folder="../client/dist", static_url_path="/")
 cors = CORS(app, origins="*")
 
-@app.route('/rec_page')
-def rec_page():
-    return render_template('index.html')
-
 @app.route('/')
 def homepage():
     return send_from_directory(app.static_folder, "index.html")
@@ -62,6 +58,3 @@ def recommend():
 
 def run_server():
     app.run(host='0.0.0.0', port=5000)
-
-if __name__ == "__main__":
-    app.run(debug=True)
