@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 import pickle
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
@@ -30,7 +30,7 @@ def get_recommendation(text, n_rec = 10):
          
   return rec
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../client/dist", static_url_path="/")
 cors = CORS(app, origins="*")
 
 @app.route('/rec_page')
@@ -39,7 +39,7 @@ def rec_page():
 
 @app.route('/')
 def homepage():
-    return render_template('home.html')
+    return send_from_directory(app.static_folder, "index.html")
 
 @app.route('/api/users', methods=['GET'])
 def users():
@@ -53,7 +53,7 @@ def users():
         }
     )
 
-@app.route('/recommend', methods=['POST'])
+@app.route('/api/recommend', methods=['POST'])
 def recommend():
     text = request.json['text']
     recoms_df = get_recommendation(text)

@@ -24,7 +24,7 @@ export default function CourseRecommendationPage() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/recommend', 
+      const response = await axios.post('/api/recommend', 
         { text: searchQuery 
 
         }, 
