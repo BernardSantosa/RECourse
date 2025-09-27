@@ -24,10 +24,7 @@ def get_recommendation(text, n_rec = 10):
 
   copy_data['Similarity'] = spesified_sim
   rec = copy_data.sort_values(by='Similarity', ascending=False).head(n_rec)
-  
-  if 'course_rating' in rec.columns:
-        rec = rec.sort_values(by='course_rating', ascending=False)
-         
+           
   return rec
 
 app = Flask(__name__, static_folder="../client/dist", static_url_path="/")

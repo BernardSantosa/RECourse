@@ -3,6 +3,7 @@ import type React from "react";
 import { BookOpen, Users, Star, Search, GraduationCap, Target, TrendingUp } from "lucide-react";
 import axios from "axios";
 import CourseCard from './courseCard';
+import { motion, type Variants } from "framer-motion";
 
 interface Course {
   course_title: string;
@@ -12,6 +13,24 @@ interface Course {
   course_time: string;
   course_skills: string[] | string;
   course_url: string;
+}
+
+const recourseVariants: Variants = {
+  hidden: { y: -20, opacity: 0},
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {duration: 0.8, ease: "easeOut"}
+  }
+}
+
+const sub1Variants: Variants = {
+  hidden: { y: 20, opacity: 0},
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {duration: 0.8, ease: "easeOut"}
+  }
 }
 
 export default function CourseRecommendationPage() {
@@ -56,13 +75,24 @@ export default function CourseRecommendationPage() {
         <div className="relative z-10 text-center max-w-4xl mx-auto px-6 flex items-center flex-col">
           <div className="mb-8 ">
             <GraduationCap className="w-16 h-16 mx-auto mb-6 text-accent" />
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance">
+            <motion.h1 
+              className="text-5xl md:text-7xl font-bold mb-6 text-balance"
+              variants={recourseVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ amount: 0.3 }}
+            >
               RECourse
               <span className="text-accent block">Discover Your Next <br /> Learning Adventure</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 text-pretty max-w-2xl mx-auto">
+            </motion.h1>
+            <motion.p 
+            className="text-xl md:text-2xl text-muted-foreground mb-8 text-pretty max-w-2xl mx-auto"
+            variants={sub1Variants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ amount: 0.3 }}>
               Get personalized course recommendations powered by AI to accelerate your learning journey and achieve your goals
-            </p>
+            </motion.p>
           </div>
           <button
             onClick={scrollToSearch}
@@ -74,7 +104,12 @@ export default function CourseRecommendationPage() {
         </div>
       </section>
       <section className="py-20 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-6">
+        <motion.div 
+        className="max-w-7xl mx-auto px-6"
+        variants={sub1Variants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ amount: 0.3 }}>
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">Why Choose Our Recommendation System?</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
@@ -119,7 +154,7 @@ export default function CourseRecommendationPage() {
                 </p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Search Section */}
