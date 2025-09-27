@@ -159,7 +159,12 @@ export default function CourseRecommendationPage() {
 
       {/* Search Section */}
       <section id="search-section" className="py-20 bg-background">
-        <div className="max-w-4xl mx-auto px-6">
+        <motion.div 
+        className="max-w-4xl mx-auto px-6"
+        variants={sub1Variants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ amount: 0.3 }}>
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">Find Your Perfect Course</h2>
             <p className="text-xl text-muted-foreground text-pretty">
@@ -238,7 +243,7 @@ export default function CourseRecommendationPage() {
               <p className="text-lg text-muted-foreground">Start your learning journey by searching for a topic above</p>
             </div>
           )}
-        </div>
+        </motion.div>
       </section>
     </div>
   );
