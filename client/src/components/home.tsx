@@ -44,8 +44,8 @@ export default function CourseRecommendationPage() {
     setIsLoading(true);
     try {
       const response = await axios.post('/api/recommend', 
-        { text: searchQuery 
-
+        { 
+        text: searchQuery 
         }, 
         {
         headers: { "Content-Type": "application/json" }
@@ -158,19 +158,22 @@ export default function CourseRecommendationPage() {
       </section>
 
       {/* Search Section */}
+      {/* Search Section */}
       <section id="search-section" className="py-20 bg-background">
-        <motion.div 
-        className="max-w-4xl mx-auto px-6"
-        variants={sub1Variants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ amount: 0.3 }}>
-          <div className="text-center mb-12">
+        <div className="max-w-4xl mx-auto px-6">
+          {/* Elemen-elemen ini sekarang statis dan tidak akan hilang */}
+          <motion.div
+            className="text-center mb-12"
+            variants={sub1Variants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ amount: 0.3 }}
+          >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">Find Your Perfect Course</h2>
             <p className="text-xl text-muted-foreground text-pretty">
               Enter a topic, skill, or subject you're interested in learning and discover courses tailored to your needs
             </p>
-          </div>
+          </motion.div>
 
           <form onSubmit={fetchApi} className="mb-8">
             <div className="flex gap-4 max-w-2xl mx-auto">
@@ -213,37 +216,45 @@ export default function CourseRecommendationPage() {
             </div>
           )}
 
-          {isLoading ? (
-            <div className="text-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto"></div>
-              <p className="text-lg text-muted-foreground mt-4">Finding recommendations...</p>
-            </div>
-          ) : displayedCourses.length > 0 ? (
-            <div className="animate-in fade-in duration-500">
-              <h3 className="text-2xl font-bold text-center mb-8">
-                Recommended Courses for "{searchQuery}"
-                <span className="block text-lg font-normal text-muted-foreground mt-2">
-                  {displayedCourses.length} course{displayedCourses.length !== 1 ? "s" : ""} found
-                </span>
-              </h3>
+          {/* Bagian dinamis untuk menampilkan hasil, loading, atau pesan */}
+          <div className="mt-8">
+            {isLoading ? (
+              <div className="text-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto"></div>
+                <p className="text-lg text-muted-foreground mt-4">Finding recommendations...</p>
+              </div>
+            ) : displayedCourses.length > 0 ? (
+              <motion.div 
+                className="animate-in fade-in duration-500"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <h3 className="text-2xl font-bold text-center mb-8">
+                  Recommended Courses for "{searchQuery}"
+                  <span className="block text-lg font-normal text-muted-foreground mt-2">
+                    {displayedCourses.length} course{displayedCourses.length !== 1 ? "s" : ""} found
+                  </span>
+                </h3>
 
-              {displayedCourses.map((course, index) => (
-                <CourseCard key={index} course={course} />
-              ))}
-            </div>
-          ) : courses.length > 0 ? (
-            <div className="text-center py-12">
-              <Star className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
-              <p className="text-lg text-muted-foreground">No courses match the minimum rating of {minRating.toFixed(1)}.</p>
-              <p className="text-sm text-muted-foreground">Try adjusting the filter slider.</p>
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <BookOpen className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
-              <p className="text-lg text-muted-foreground">Start your learning journey by searching for a topic above</p>
-            </div>
-          )}
-        </motion.div>
+                {displayedCourses.map((course, index) => (
+                  <CourseCard key={index} course={course} />
+                ))}
+              </motion.div>
+            ) : courses.length > 0 ? (
+              <div className="text-center py-12">
+                <Star className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
+                <p className="text-lg text-muted-foreground">No courses match the minimum rating of {minRating.toFixed(1)}.</p>
+                <p className="text-sm text-muted-foreground">Try adjusting the filter slider.</p>
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <BookOpen className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
+                <p className="text-lg text-muted-foreground">Start your learning journey by searching for a topic above</p>
+              </div>
+            )}
+          </div>
+        </div>
       </section>
     </div>
   );
